@@ -19,7 +19,7 @@ const navigationMethods = ref([
 
 <template>
   <div class="about">
-    <h1>Vue Router Documentation</h1>
+    <h1>Vue Router Cheatsheet</h1>
 
     <section class="intro">
       <h2>What is Vue Router?</h2>
