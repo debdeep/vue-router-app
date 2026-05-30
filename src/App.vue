@@ -3,17 +3,16 @@
 
 <template>
   <div class="topbar">
+    <img class="logo" alt="Vue Logo" src="./assets/vue.svg" />
     <router-link to="/">Home</router-link>
     <span class="divider">|</span>
     <router-link to="/about">About</router-link>
     <span class="divider">|</span>
     <router-link to="/contact">Contact Us</router-link>
-    <!-- <a href="#">More Info</a> -->
   </div>
-  <div class="container">
-    <img class="logo" alt="Vue Logo" src="./assets/vue.svg" />
-    <br />
 
+  <div class="container">
+    <br />
     <router-view></router-view>
   </div>
 </template>
@@ -36,10 +35,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 .logo {
-  width: 120px;
+  width: 15px;
   height: auto;
 }
 </style>
