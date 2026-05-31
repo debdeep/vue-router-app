@@ -5,10 +5,10 @@
     <span class="divider">|</span>
     <router-link to="/about">About</router-link>
     <span class="divider">|</span>
-    <router-link to="/contact">Contact Us</router-link>
+    <router-link to="/contact">Contact-Us</router-link>
     <span class="divider">|</span>
     <a href="https://router.vuejs.org/" target="_blank"
-      >Vue Router Official Doc</a
+      >Router Doc</a
     >
   </div>
 </template>
