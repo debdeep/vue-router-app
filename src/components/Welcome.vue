@@ -1,6 +1,6 @@
 <template>
   <div class="search-container">
-    <h3>Welcome to Employee Directory</h3>
+    <h1>Welcome to Employee Directory</h1>
     <input
       type="text"
       placeholder="Search By Name or Email..."
@@ -15,7 +15,7 @@
     <div class="card" v-for="employee in employeeList" :key="employee.id">
       <img :src="employee.image" class="card-img-top" :alt="employee.name" />
       <div class="card-body">
-        <h5 class="card-title">{{ employee.name }}</h5>
+        <h3 class="card-title">{{ employee.name }}</h3>
         <div class="card-text">
           <p><strong>DOB:</strong> {{ employee.dob }}</p>
           <p><strong>Age:</strong> {{ employee.age }}</p>
@@ -29,7 +29,7 @@
 
   <!-- Fade-in message if no data -->
   <transition v-else name="fade">
-    <p class="no-data">No Data Found</p>
+    <p class="no-data">No Records Found</p>
   </transition>
 </template>
 
@@ -58,15 +58,15 @@ const employeeList = computed(() => {
     image: employee.picture.large || employee.picture.medium,
   }));
 
-  if (searchQuery.value) {
+  if (searchQuery.value && searchQuery.value?.length > 2) {
     list = list.filter(
       (employee) =>
         employee.name
           .toLowerCase()
-          .includes(searchQuery.value.trim().toLowerCase()) ||
+          .includes(searchQuery.value?.trim()?.toLowerCase()) ||
         employee.email
           .toLowerCase()
-          .includes(searchQuery.value.trim().toLowerCase())
+          .includes(searchQuery.value?.trim()?.toLowerCase())
     );
   }
   return list;
@@ -120,7 +120,7 @@ const employeeList = computed(() => {
   width: 250px;
   padding-left: 10px;
 }
-h3 {
+h1 {
   margin-right: auto; /* pushes heading to left */
 }
 </style>

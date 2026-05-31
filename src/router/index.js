@@ -14,7 +14,12 @@ const routes = [
         path: '/contact',
         name: 'Contact',
         component: () => import('@/views/Contact.vue') //Lazy Loading component on demand
+    }, {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: () => import('@/views/NotFound.vue')
     }
+
 ]
 
 const router = createRouter({
