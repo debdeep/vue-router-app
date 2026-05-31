@@ -1,21 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
-import About from '@/views/About.vue';
-import Contact from '@/views/Contact.vue';
 
 const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home //Lazy Loading not required for default page
     }, {
         path: '/about',
         name: 'About',
-        component: About
+        component: () => import('@/views/About.vue') //Lazy Loading component on demand
     }, {
         path: '/contact',
         name: 'Contact',
-        component: Contact
+        component: () => import('@/views/Contact.vue') //Lazy Loading component on demand
     }
 ]
 
