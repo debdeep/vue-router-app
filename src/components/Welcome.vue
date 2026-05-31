@@ -1,6 +1,17 @@
 <template>
+  <div class="search-container">
+    <h3>Welcome to Employee Directory</h3>
+    <input
+      type="text"
+      placeholder="Search By Name or Email..."
+      v-model="searchQuery"
+      class="search-input"
+    />
+  </div>
   <h2>Employees Details:</h2>
-  <div class="employees" v-if="employeeListResponse.length > 1">
+
+  <!-- Show cards if data exists -->
+  <div class="employees" v-if="employeeList.length > 0">
     <div class="card" v-for="employee in employeeList" :key="employee.id">
       <img :src="employee.image" class="card-img-top" :alt="employee.name" />
       <div class="card-body">
@@ -15,22 +26,28 @@
       </div>
     </div>
   </div>
+
+  <!-- Fade-in message if no data -->
+  <transition v-else name="fade">
+    <p class="no-data">No Data Found</p>
+  </transition>
 </template>
+
 
 <script setup>
 import axios from "axios";
-import { ref, onMounted, computed, reactive } from "vue";
+import { ref, onMounted, computed } from "vue";
 
 let employeeListResponse = ref([]);
+const searchQuery = ref("");
 
 onMounted(async () => {
   let response = await axios.get("https://randomuser.me/api/?results=5&nat=us");
   employeeListResponse.value = response.data.results;
-  console.log(employeeListResponse.value);
 });
 
 const employeeList = computed(() => {
-  return employeeListResponse?.value.map((employee) => ({
+  let list = employeeListResponse.value.map((employee) => ({
     id: employee.login.uuid,
     name: `${employee.name.first} ${employee.name.last}`,
     dob: employee.dob.date?.split("T")[0],
@@ -38,19 +55,31 @@ const employeeList = computed(() => {
     gender: employee.gender,
     email: employee.email,
     address: `${employee.location.street.number}, ${employee.location.street.name}, ${employee.location.postcode}, ${employee.location.state}, ${employee.location.country}`,
-    image: employee.picture.large
-      ? employee.picture.large
-      : employee.picture.medium,
+    image: employee.picture.large || employee.picture.medium,
   }));
+
+  if (searchQuery.value) {
+    list = list.filter(
+      (employee) =>
+        employee.name
+          .toLowerCase()
+          .includes(searchQuery.value.trim().toLowerCase()) ||
+        employee.email
+          .toLowerCase()
+          .includes(searchQuery.value.trim().toLowerCase())
+    );
+  }
+  return list;
 });
 </script>
-//want side by side card
+
+
 <style scoped>
 .employees {
   display: flex;
-  flex-wrap: wrap; /* allows wrapping to next line */
-  gap: 1rem; /* spacing between cards */
-  justify-content: center; /* center align cards */
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem;
@@ -58,28 +87,40 @@ const employeeList = computed(() => {
 }
 
 .card {
-  flex: 1 1 250px; /* flexible width, min 250px */
+  flex: 1 1 250px;
   max-width: 18rem;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
+
 .card img {
-  width: 100%; /* fill card width */
-  height: 200px; /* fixed height for consistency */
-  object-fit: cover; /* crop/scale nicely */
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
-@media (max-width: 768px) {
-  .card img {
-    height: 150px; /* smaller height on tablets/mobiles */
-  }
-}
 
-@media (max-width: 480px) {
-  .card img {
-    height: 120px; /* even smaller on phones */
-  }
+.no-data {
+  text-align: center;
+  font-weight: bold;
+  color: rgb(222, 100, 100);
+  margin-top: 1rem;
+}
+.search-container {
+  display: flex;
+  justify-content: flex-end; /* pushes input to right */
+  margin-bottom: 1rem;
+}
+.search-input {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 250px;
+  padding-left: 10px;
+}
+h3 {
+  margin-right: auto; /* pushes heading to left */
 }
 </style>

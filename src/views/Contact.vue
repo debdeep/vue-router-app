@@ -1,4 +1,6 @@
 <script setup>
+import GoBack from "../components/GoBack.vue";
+
 const email = "debdeepm89@gmail.com";
 const maskedEmail = email.replace(/(.{3})(.*)(@.*)/, "$1XXX$3");
 </script>
@@ -12,5 +14,6 @@ const maskedEmail = email.replace(/(.{3})(.*)(@.*)/, "$1XXX$3");
         ><i>{{ maskedEmail }}</i></b
       >
     </a>
+    <GoBack />
   </div>
 </template>
