@@ -1,17 +1,21 @@
 <template>
   <div class="topbar">
     <img class="logo" alt="Vue Logo" src="../assets/vue.svg" />
-    <router-link to="/">Home</router-link>
+    <AppLink to="/">Home</AppLink>
     <span class="divider">|</span>
-    <router-link to="/about">About</router-link>
+    <AppLink to="/about">About</AppLink>
     <span class="divider">|</span>
-    <router-link to="/contact">Contact-Us</router-link>
+    <AppLink to="/contact">Contact-Us</AppLink>
     <span class="divider">|</span>
-    <a href="https://router.vuejs.org/" target="_blank"
-      >Router Doc</a
-    >
+    <AppLink to="https://router.vuejs.org/">Router Doc</AppLink>
   </div>
 </template>
+
+<script setup>
+
+import AppLink from "./generics/AppLink.vue";
+
+</script>
 
 <style scoped>
 .topbar {

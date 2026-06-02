@@ -8,6 +8,7 @@ const maskedEmail = email.replace(/(.{3})(.*)(@.*)/, "$1XXX$3");
 <template>
   <div class="contact">
     <h1>Contact Us Page</h1>
+    <br />
     <a :href="`mailto:${email}`"
       >Click to send Email to:
       <b

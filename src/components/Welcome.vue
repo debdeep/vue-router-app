@@ -117,7 +117,6 @@ const employeeList = computed(() => {
   padding: 0.5rem;
   border-radius: 6px;
   border: 1px solid #ccc;
-  width: 250px;
   padding-left: 10px;
 }
 h1 {
