@@ -5,7 +5,8 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home //Lazy Loading not required for default page
+        component: Home, //Lazy Loading not required for default page
+        alias: '/home'
     }, {
         path: '/about',
         name: 'About',
