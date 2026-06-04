@@ -9,11 +9,13 @@ const routes = [
     }, {
         path: '/about',
         name: 'About',
-        component: () => import('@/views/About.vue') //Lazy Loading component on demand
+        component: () => import('@/views/About.vue'), //Lazy Loading component on demand
+        sensitive: true
     }, {
         path: '/contact',
         name: 'Contact',
-        component: () => import('@/views/Contact.vue') //Lazy Loading component on demand
+        component: () => import('@/views/Contact.vue'), //Lazy Loading component on demand
+        sensitive: true
     }, {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
@@ -25,6 +27,7 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes: routes,
+    strict: true, // applies to all routes
     scrollBehavior(to, from, savedPosition) {
         // `savedPosition` is used when navigating back/forward
         if (savedPosition) {
