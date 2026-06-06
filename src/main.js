@@ -8,4 +8,9 @@ import 'bootstrap'
 import App from './App.vue';
 import router from './router';
 
-createApp(App).use(router).mount('#app')
+const app = createApp(App)
+app.use(router)
+
+// mount after the initial router navigation is ready as  navigations are asynchronous in Vue Router
+await router.isReady()
+app.mount('#app')
