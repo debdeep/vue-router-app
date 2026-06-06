@@ -5,12 +5,20 @@
       class="search-input" />
   </div>
   <h2>{{ HOME_PAGE.SUBHEADING }}</h2>
+  <h3>{{ EMPLOYEE.EMPLOYEES_FOUND }} {{ employeeList.length }}</h3>
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" value="" id="checkFemaleFilterSwitch"
+      v-model="showFemaleEmployeesOnly" switch>
+    <label class="form-check-label" for="checkFemaleFilterSwitch">
+      {{ SWITCH.FEMALE_FILTER_TEXT }}
+    </label>
+  </div>
 
   <div class="employees" v-if="employeeList.length > 0">
     <div class="card" v-for="employee in employeeList" :key="employee.id">
       <img :src="employee.image" class="card-img-top" :alt="employee.name" />
       <div class="card-body">
-        <h3 class="card-title">{{ employee.name }}</h3>
+        <h4 class="card-title">{{ employee.name }}</h4>
         <div class="card-text">
           <p><strong>{{ EMPLOYEE.DOB }}</strong> {{ employee.dob }}</p>
           <p><strong>{{ EMPLOYEE.AGE }}</strong> {{ employee.age }}</p>
@@ -30,11 +38,12 @@
 <script setup>
 import axios from "axios";
 import { ref, onMounted, computed } from "vue";
-import { EMPLOYEE, HOME_PAGE, SEARCH_BAR } from '../utils/constants.js';
+import { EMPLOYEE, HOME_PAGE, SEARCH_BAR, SWITCH } from '../utils/constants.js';
 
 const employeeListResponse = ref([]);
 const searchQuery = ref("");
 const listResponseCount = ref(10);
+const showFemaleEmployeesOnly = ref(false);
 
 onMounted(async () => {
   try {
@@ -46,7 +55,8 @@ onMounted(async () => {
 });
 
 const employeeList = computed(() => {
-  const list = employeeListResponse.value.map((employee) => ({
+  // Mapping the raw API data to clean objects
+  let list = employeeListResponse.value.map((employee) => ({
     id: employee.login.uuid,
     name: `${employee.name.first} ${employee.name.last}`,
     dob: employee.dob.date?.split("T")[0],
@@ -59,13 +69,18 @@ const employeeList = computed(() => {
 
   const query = searchQuery.value?.toLowerCase();
 
-  // Only filter if the query is longer than 2 characters
+  // 2. Applying search query filter if it has more than 2 characters
   if (query && query.length > 2) {
-    return list.filter(
+    list = list.filter(
       (employee) =>
         employee.name.toLowerCase().includes(query) ||
         employee.email.toLowerCase().includes(query)
     );
+  }
+
+  // Applying female filter switch if turned on
+  if (showFemaleEmployeesOnly.value) {
+    list = list.filter((employee) => employee.gender === "female");
   }
 
   return list;

@@ -3,7 +3,8 @@ export const EMPLOYEE = {
     AGE: 'Age:',
     GENDER: 'Gender:',
     ADDRESS: 'Address:',
-    EMAIL: 'Email:'
+    EMAIL: 'Email:',
+    EMPLOYEES_FOUND: "Employee Count:"
 }
 
 export const HOME_PAGE = {
@@ -20,4 +21,7 @@ export const NAVIGATION_BAR = {
     ABOUT: 'About',
     CONTACT_US: 'Contact-Us',
     ROUTER_DOC: 'Router Doc'
+}
+export const SWITCH = {
+    FEMALE_FILTER_TEXT: "Display Female Employees Only"
 }
