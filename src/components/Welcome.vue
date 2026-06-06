@@ -1,53 +1,52 @@
 <template>
   <div class="search-container">
-    <h1>Welcome to Employee Directory</h1>
-    <input
-      type="text"
-      placeholder="Search By Name or Email..."
-      v-model="searchQuery"
-      class="search-input"
-    />
+    <h1>{{ HOME_PAGE.HEADING }}</h1>
+    <input id="searchBar" type="text" :placeholder="SEARCH_BAR.PLACEHOLDER" v-model.trim="searchQuery"
+      class="search-input" />
   </div>
-  <h2>Employees Details:</h2>
+  <h2>{{ HOME_PAGE.SUBHEADING }}</h2>
 
-  <!-- Show cards if data exists -->
   <div class="employees" v-if="employeeList.length > 0">
     <div class="card" v-for="employee in employeeList" :key="employee.id">
       <img :src="employee.image" class="card-img-top" :alt="employee.name" />
       <div class="card-body">
         <h3 class="card-title">{{ employee.name }}</h3>
         <div class="card-text">
-          <p><strong>DOB:</strong> {{ employee.dob }}</p>
-          <p><strong>Age:</strong> {{ employee.age }}</p>
-          <p><strong>Gender:</strong> {{ employee.gender }}</p>
-          <p><strong>Address:</strong> {{ employee.address }}</p>
-          <p><strong>Email:</strong> {{ employee.email }}</p>
+          <p><strong>{{ EMPLOYEE.DOB }}</strong> {{ employee.dob }}</p>
+          <p><strong>{{ EMPLOYEE.AGE }}</strong> {{ employee.age }}</p>
+          <p><strong>{{ EMPLOYEE.GENDER }}</strong> {{ employee.gender }}</p>
+          <p><strong>{{ EMPLOYEE.ADDRESS }}</strong> {{ employee.address }}</p>
+          <p><strong>{{ EMPLOYEE.EMAIL }}</strong> {{ employee.email }}</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Fade-in message if no data -->
   <transition v-else name="fade">
     <p class="no-data">No Records Found</p>
   </transition>
 </template>
 
-
 <script setup>
 import axios from "axios";
 import { ref, onMounted, computed } from "vue";
+import { EMPLOYEE, HOME_PAGE, SEARCH_BAR } from '../utils/constants.js';
 
-let employeeListResponse = ref([]);
+const employeeListResponse = ref([]);
 const searchQuery = ref("");
+const listResponseCount = ref(10);
 
 onMounted(async () => {
-  let response = await axios.get("https://randomuser.me/api/?results=5&nat=us");
-  employeeListResponse.value = response.data.results;
+  try {
+    const response = await axios.get(`https://randomuser.me/api/?results=${listResponseCount.value}&nat=us`);
+    employeeListResponse.value = response.data.results;
+  } catch (error) {
+    console.error("Error fetching employees:", error);
+  }
 });
 
 const employeeList = computed(() => {
-  let list = employeeListResponse.value.map((employee) => ({
+  const list = employeeListResponse.value.map((employee) => ({
     id: employee.login.uuid,
     name: `${employee.name.first} ${employee.name.last}`,
     dob: employee.dob.date?.split("T")[0],
@@ -58,21 +57,20 @@ const employeeList = computed(() => {
     image: employee.picture.large || employee.picture.medium,
   }));
 
-  if (searchQuery.value && searchQuery.value?.length > 2) {
-    list = list.filter(
+  const query = searchQuery.value?.toLowerCase();
+
+  // Only filter if the query is longer than 2 characters
+  if (query && query.length > 2) {
+    return list.filter(
       (employee) =>
-        employee.name
-          .toLowerCase()
-          .includes(searchQuery.value?.trim()?.toLowerCase()) ||
-        employee.email
-          .toLowerCase()
-          .includes(searchQuery.value?.trim()?.toLowerCase())
+        employee.name.toLowerCase().includes(query) ||
+        employee.email.toLowerCase().includes(query)
     );
   }
+
   return list;
 });
 </script>
-
 
 <style scoped>
 .employees {
@@ -108,18 +106,31 @@ const employeeList = computed(() => {
   color: rgb(222, 100, 100);
   margin-top: 1rem;
 }
+
 .search-container {
   display: flex;
-  justify-content: flex-end; /* pushes input to right */
+  justify-content: flex-end;
   margin-bottom: 1rem;
 }
+
 .search-input {
   padding: 0.5rem;
   border-radius: 6px;
   border: 1px solid #ccc;
   padding-left: 10px;
 }
+
 h1 {
-  margin-right: auto; /* pushes heading to left */
+  margin-right: auto;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -1,19 +1,20 @@
 <template>
   <div class="topbar">
     <img class="logo" alt="Vue Logo" src="../assets/vue.svg" />
-    <AppLink to="/">Home</AppLink>
+    <AppLink to="/"> {{ NAVIGATION_BAR.HOME }} </AppLink>
     <span class="divider">|</span>
-    <AppLink to="/about">About</AppLink>
+    <AppLink to="/about"> {{ NAVIGATION_BAR.ABOUT }} </AppLink>
     <span class="divider">|</span>
-    <AppLink to="/contact">Contact-Us</AppLink>
+    <AppLink to="/contact"> {{ NAVIGATION_BAR.CONTACT_US }} </AppLink>
     <span class="divider">|</span>
-    <AppLink to="https://router.vuejs.org/">Router Doc</AppLink>
+    <AppLink to="https://router.vuejs.org/">{{ NAVIGATION_BAR.ROUTER_DOC }}</AppLink>
   </div>
 </template>
 
 <script setup>
 
 import AppLink from "./generics/AppLink.vue";
+import { NAVIGATION_BAR } from '../utils/constants.js';
 
 </script>
 
@@ -27,9 +28,11 @@ import AppLink from "./generics/AppLink.vue";
   background: rgb(200, 225, 241);
   margin-bottom: .5rem;
 }
+
 .divider {
   color: black;
 }
+
 .logo {
   width: 15px;
   height: auto;
