@@ -1,5 +1,9 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import useRouterLogger from "../composables/routeLogger";
+
+// Destructure the reactive route and router objects
+const { router, route } = useRouterLogger();
 
 const features = ref([
   "Client-side navigation without page reload",
@@ -15,6 +19,15 @@ const navigationMethods = ref([
   "router.replace() - Replace current entry",
   "router.go(n) - Navigate backward or forward",
 ]);
+
+onMounted(() => {
+  console.log("About component mounted");
+
+  // To look at the full path, query params, or name:
+  console.log("Current Route Path:", route.path);
+  console.log("Full Route Object:", route);
+  console.log("Router Instance:", router);
+});
 </script>
 
 <template>
