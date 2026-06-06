@@ -25,7 +25,6 @@ import AppLink from "./generics/AppLink.vue";
   gap: 0.5rem;
   padding: 0.6rem 1rem;
   background: rgb(200, 225, 241);
-  border-radius: 8px;
   margin-bottom: .5rem;
 }
 .divider {
