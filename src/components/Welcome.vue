@@ -13,9 +13,9 @@
       {{ SWITCH.FEMALE_FILTER_TEXT }}
     </label>
   </div>
-
+  <p v-if="message && searchQuery.length < 3">{{ message }}</p>
   <div class="employees" v-if="employeeList.length > 0">
-    <EmployeeCard :employeeList="employeeList" />
+    <EmployeeCard :employeeList="employeeList" @employeeSelected="displayMessage" />
   </div>
 
 
@@ -35,6 +35,11 @@ const employeeListResponse = ref([]);
 const searchQuery = ref("");
 const listResponseCount = ref(10);
 const showFemaleEmployeesOnly = ref(false);
+const message = ref("");
+
+const displayMessage = (employee) => {
+  message.value = `Contacted Employee is: ${employee.name}`;
+};
 
 onMounted(async () => {
   try {

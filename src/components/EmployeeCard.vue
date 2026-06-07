@@ -10,7 +10,8 @@
                 <p><strong>{{ EMPLOYEE.ADDRESS }}</strong> {{ employee.address }}</p>
                 <p><strong>{{ EMPLOYEE.EMAIL }}</strong> {{ employee.email }}</p>
             </div>
-            <a :href="`mailto:${employee.email}`" class="btn btn-primary">Contact Employee</a>
+            <a :href="`mailto:${employee.email}`" class="btn btn-primary"
+                @click="() => selectedEmployee(employee)">Contact Employee</a>
         </div>
     </div>
 </template>
@@ -18,16 +19,22 @@
 <script setup>
 import { EMPLOYEE } from '../utils/constants';
 
+
+const emit = defineEmits(['employeeSelected']);
 const props = defineProps({
     employeeList: {
         type: Array,
         required: true
     }
 });
+
 const genderFormat = (gender) => {
     if (gender) {
         return gender.charAt(0).toLocaleUpperCase() + gender.slice(1);
     }
     return "NA";
+}
+const selectedEmployee = (employee) => {
+    emit('employeeSelected', employee);
 }
 </script>
