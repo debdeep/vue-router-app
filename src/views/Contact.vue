@@ -1,5 +1,5 @@
 <script setup>
-import GoBack from "../components/GoBack.vue";
+import AppBack from "../components/generics/AppBack.vue";
 import useRouterLogger from "../composables/routeLogger";
 import { onMounted } from "vue";
 
@@ -28,6 +28,6 @@ onMounted(() => {
         ><i>{{ maskedEmail }}</i></b
       >
     </a>
-    <GoBack />
+    <AppBack />
   </div>
 </template>
