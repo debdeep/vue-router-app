@@ -4,7 +4,7 @@
     <input id="searchBar" type="text" :placeholder="SEARCH_BAR.PLACEHOLDER" v-model.trim="searchQuery"
       class="search-input" />
   </div>
-  <!-- <h2>{{ HOME_PAGE.SUBHEADING }}</h2> -->
+
   <h2>{{ EMPLOYEE.EMPLOYEES_FOUND }} {{ employeeList.length }}</h2>
   <div class="form-check form-switch" v-show="employeeList.length > 0">
     <input class="form-check-input" type="checkbox" value="" id="checkFemaleFilterSwitch"
@@ -15,26 +15,12 @@
   </div>
 
   <div class="employees" v-if="employeeList.length > 0">
-    <div class="card" v-for="employee in employeeList" :key="employee.id">
-      <img :src="employee.image" class="card-img-top" :alt="employee.name" />
-      <div class="card-body">
-        <h3 class="card-title">{{ employee.name }}</h3>
-        <div class="card-text">
-          <p><strong>{{ EMPLOYEE.DOB }}</strong> {{ employee.dob }}</p>
-          <p><strong>{{ EMPLOYEE.AGE }}</strong> {{ employee.age }}</p>
-          <p><strong>{{ EMPLOYEE.GENDER }}</strong> {{ employee.gender }}</p>
-          <p><strong>{{ EMPLOYEE.ADDRESS }}</strong> {{ employee.address }}</p>
-          <p><strong>{{ EMPLOYEE.EMAIL }}</strong> {{ employee.email }}</p>
-        </div>
-      </div>
-    </div>
+    <EmployeeCard :employeeList="employeeList" />
   </div>
 
+
   <transition v-else name="fade">
-    <div class="no-results-container">
-      <p class="no-data">No Records Found</p>
-      <img src="@/assets/no-results.jpg" alt="No results found" class="no-results-img" />
-    </div>
+    <EmptyList />
   </transition>
 </template>
 
@@ -42,6 +28,8 @@
 import axios from "axios";
 import { ref, onMounted, computed } from "vue";
 import { EMPLOYEE, HOME_PAGE, SEARCH_BAR, SWITCH } from '../utils/constants.js';
+import EmptyList from "./EmptyList.vue";
+import EmployeeCard from "./EmployeeCard.vue";
 
 const employeeListResponse = ref([]);
 const searchQuery = ref("");
@@ -118,13 +106,6 @@ const employeeList = computed(() => {
   border-top-right-radius: 8px;
 }
 
-.no-data {
-  text-align: center;
-  font-weight: bold;
-  color: rgb(222, 100, 100);
-  margin-top: 1rem;
-}
-
 .search-container {
   display: flex;
   justify-content: flex-end;
@@ -150,23 +131,5 @@ h1 {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-/* The container wraps both the image and the paragraph */
-.no-results-container {
-  display: flex;
-  flex-direction: column; /* Stacks image on top of text */
-  justify-content: center; /* Centers items vertically */
-  align-items: center;     /* Centers items horizontally */
-  min-height: 400px;       /* Gives it a nice dedicated area on screen */
-  width: 100%;
-  margin-top: 2rem;
-}
-
-/* Control the size of your no-results asset image */
-.no-results-img {
-  max-width: 300px;        /* Limits width so it doesn't blow up */
-  height: auto;            /* Keeps original aspect ratio intact */
-  margin-bottom: 1rem;     /* Adds breathing room above the text */
 }
 </style>
