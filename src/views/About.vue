@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import useRouterLogger from "../composables/routeLogger";
+import GoBack from "../components/GoBack.vue";
 
 // Destructure the reactive route and router objects
 const { router, route } = useRouterLogger();
@@ -84,6 +85,7 @@ onMounted(() => {
         for route-specific configuration.
       </p>
     </section>
+    <GoBack />
   </div>
 </template>
 
