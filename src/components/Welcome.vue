@@ -4,8 +4,8 @@
     <input id="searchBar" type="text" :placeholder="SEARCH_BAR.PLACEHOLDER" v-model.trim="searchQuery"
       class="search-input" />
   </div>
-  <h2>{{ HOME_PAGE.SUBHEADING }}</h2>
-  <h3>{{ EMPLOYEE.EMPLOYEES_FOUND }} {{ employeeList.length }}</h3>
+  <!-- <h2>{{ HOME_PAGE.SUBHEADING }}</h2> -->
+  <h2>{{ EMPLOYEE.EMPLOYEES_FOUND }} {{ employeeList.length }}</h2>
   <div class="form-check form-switch" v-show="employeeList.length > 0">
     <input class="form-check-input" type="checkbox" value="" id="checkFemaleFilterSwitch"
       v-model="showFemaleEmployeesOnly" switch>
@@ -18,7 +18,7 @@
     <div class="card" v-for="employee in employeeList" :key="employee.id">
       <img :src="employee.image" class="card-img-top" :alt="employee.name" />
       <div class="card-body">
-        <h4 class="card-title">{{ employee.name }}</h4>
+        <h3 class="card-title">{{ employee.name }}</h3>
         <div class="card-text">
           <p><strong>{{ EMPLOYEE.DOB }}</strong> {{ employee.dob }}</p>
           <p><strong>{{ EMPLOYEE.AGE }}</strong> {{ employee.age }}</p>
