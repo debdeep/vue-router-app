@@ -85,7 +85,7 @@ onMounted(() => {
         for route-specific configuration.
       </p>
     </section>
-    <AppBack />
+    <AppBack>⬅ Back</AppBack>
   </div>
 </template>
 
