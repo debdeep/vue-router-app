@@ -16,12 +16,12 @@ export const SEARCH_BAR = {
     PLACEHOLDER: 'Search By Name or Email..',
 }
 
-export const NAVIGATION_BAR = {
+export const NAVIGATION_BAR = Object.freeze({
     HOME: 'Home',
     ABOUT: 'About',
     CONTACT_US: 'Contact-Us',
     ROUTER_DOC: 'Router Doc'
-}
+});
 export const SWITCH = {
     FEMALE_FILTER_TEXT: "Display Female Employees Only"
 }
