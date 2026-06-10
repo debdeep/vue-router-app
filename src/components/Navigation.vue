@@ -26,7 +26,6 @@ import { NAVIGATION_BAR } from '../utils/constants.js';
   gap: 0.5rem;
   padding: 0.6rem 1rem;
   background: rgb(200, 225, 241);
-  margin-bottom: .5rem;
 }
 
 .divider {
