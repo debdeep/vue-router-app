@@ -12,6 +12,11 @@ export const HOME_PAGE = {
     SUBHEADING: "Employees Details:"
 }
 
+export const CONTACT_US_PAGE = {
+    HEADER: "Contact Us Page",
+    MESSAGE: "Click to send Email to:"
+}
+
 export const SEARCH_BAR = {
     PLACEHOLDER: 'Search By Name or Email..',
 }
