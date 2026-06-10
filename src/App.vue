@@ -16,6 +16,5 @@ import Navigation from "./components/Navigation.vue";
   align-items: center;
   flex-direction: row;
   padding-top: 10px;
-  padding-bottom: 10px;
 }
 </style>

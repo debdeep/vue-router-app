@@ -95,22 +95,6 @@ const employeeList = computed(() => {
   background: rgb(200, 225, 241);
 }
 
-.card {
-  flex: 1 1 250px;
-  max-width: 18rem;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-}
-
 .search-container {
   display: flex;
   justify-content: flex-end;

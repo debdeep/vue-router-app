@@ -35,6 +35,6 @@ import { NAVIGATION_BAR } from '../utils/constants.js';
 
 .logo {
   width: 15px;
-  height: auto;
+  aspect-ratio: 1 / 1;
 }
 </style>
