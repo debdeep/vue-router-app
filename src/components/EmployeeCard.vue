@@ -1,6 +1,6 @@
 <template>
     <div class="card" v-for="employee in employeeList" :key="employee.id" style="width: 18rem;">
-        <img :src="employee.image" class="card-img-top" :alt="employee.name" />
+        <img :src="employee.image" class="card-img-top" :alt="employee.name" loading="lazy" />
         <div class="card-body">
             <h3 class="card-title">{{ employee.name }}</h3>
             <div class="card-text">

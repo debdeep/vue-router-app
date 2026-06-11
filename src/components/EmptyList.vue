@@ -15,7 +15,7 @@ import { EMPLOYEE } from '../utils/constants.js';
   flex-direction: column; /* Stacks image on top of text */
   justify-content: center; /* Centers items vertically */
   align-items: center;     /* Centers items horizontally */
-  min-height: 400px;       /* Gives it a nice dedicated area on screen */
+  min-height: 700px;       /* Gives it a nice dedicated area on screen */
   width: 100%;
   margin-top: 2rem;
 }
